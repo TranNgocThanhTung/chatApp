@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="456.0" prefWidth="679.0" style="-fx-background-radius: 20;" styleClass="border" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.btck2.Controller.LoginDashboard">
+   <children>
+      <Pane layoutX="334.0" layoutY="-1.0" prefHeight="456.0" prefWidth="345.0">
+         <children>
+            <Button id="btlogin" fx:id="btnsignin" layoutX="69.0" layoutY="282.0" mnemonicParsing="false" onAction="#Signin" prefHeight="35.0" prefWidth="207.0" text="Sign in" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="70.0" fitWidth="56.0" layoutX="145.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/profile-user.png" />
+               </image></ImageView>
+            <Label layoutX="138.0" layoutY="77.0" prefHeight="39.0" prefWidth="98.0" text="Login">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="18.0" fitWidth="21.0" layoutX="35.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/user.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="usernameTextfield" layoutX="71.0" layoutY="128.0" prefHeight="35.0" prefWidth="190.0" promptText="Username" />
+            <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="35.0" layoutY="196.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/padlock.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="forgotPW" layoutX="69.0" layoutY="238.0" onMouseClicked="#forgotpw" prefHeight="18.0" prefWidth="112.0" styleClass="lb" text="Forgot Password?" textFill="#a19797" />
+            <Label layoutX="110.0" layoutY="346.0" prefHeight="18.0" prefWidth="98.0" text="Not a member? " textFill="#847b7b" />
+            <Label fx:id="labelSigup" layoutX="201.0" layoutY="346.0" onMouseClicked="#UserSignup" prefHeight="18.0" prefWidth="56.0" styleClass="lb" text="Sign up" textFill="#3e48ff" />
+            <PasswordField fx:id="PasswordtextField" layoutX="71.0" layoutY="184.0" prefHeight="35.0" prefWidth="190.0" promptText="Password" />
+         </children></Pane>
+      <Pane layoutY="-4.0" prefHeight="462.0" prefWidth="338.0" style="-fx-background-color: #3CB371;">
+         <children>
+            <ImageView fitHeight="258.0" fitWidth="253.0" layoutX="32.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/11zon_cropped.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="217.0" layoutY="439.0" prefHeight="18.0" prefWidth="112.0" text="Created by Thanh Tung" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="54.0" layoutY="354.0" prefHeight="18.0" prefWidth="231.0" text=" Mail: thanhtunga0520@gmail.com" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="54.0" layoutY="388.0" prefHeight="18.0" prefWidth="231.0" text="Phone: 0706710371" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="27.0" fitWidth="30.0" layoutX="18.0" layoutY="350.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/287692_mail_icon.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="18.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/phone.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
