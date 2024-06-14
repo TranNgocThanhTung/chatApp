@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainAC" prefHeight="241.0" prefWidth="429.0" style="-fx-background-color: #90EE90;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.btck2.Controller.LoginDashboard">
+   <children>
+      <Label layoutX="137.0" layoutY="25.0" prefHeight="35.0" prefWidth="190.0" text="Quên mật khẩu">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="54.0" fitWidth="66.0" layoutX="73.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/11zon_cropped.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="67.0" layoutY="85.0" prefHeight="26.0" prefWidth="310.0" text="Nhập email của bạn để khôi phục mật khẩu">
+         <font>
+            <Font name="System Italic" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="ymail" layoutX="83.0" layoutY="127.0" prefHeight="35.0" prefWidth="258.0" promptText="Your email" />
+      <Button fx:id="TT" layoutX="166.0" layoutY="187.0" mnemonicParsing="false" onAction="#TT" prefHeight="26.0" prefWidth="92.0" styleClass="btn" text="Tiếp tục" />
+   </children>
+</AnchorPane>
