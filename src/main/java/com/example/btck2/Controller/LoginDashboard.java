@@ -30,6 +30,8 @@ import java.util.ResourceBundle;
 import com.example.btck2.Model.MailToken;
 public class LoginDashboard implements Initializable {
     @FXML
+    private static String email;
+    @FXML
     private static String Name;
     @FXML
     private TextField UNSignup;
@@ -52,7 +54,8 @@ public class LoginDashboard implements Initializable {
     private TextField yourname;
     @FXML
     private TextField ymail;
-
+    @FXML
+    private TextField token;
     private Alert alert;
     @FXML
     private Label forgotPW;
@@ -60,7 +63,11 @@ public class LoginDashboard implements Initializable {
     private AnchorPane mainAC;
     @FXML
     private AnchorPane SCAC;
-
+@FXML
+private Button ok;
+public static String getemail(){
+    return email;
+}
     public static String getname() {
         return Name;
     }
@@ -90,11 +97,7 @@ public class LoginDashboard implements Initializable {
         con = connectDB.connect();
         String query = "INSERT INTO user (username, password, email,Name) VALUES (?, ?, ?,?)";
         if (UNSignup.getText().isEmpty() || PWSignup.getText().isEmpty() || EMSignup.getText().isEmpty() || yourname.getText().isEmpty()) {
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Lỗi!");
-            alert.setHeaderText(null);
-            alert.setContentText("Vui lòng điền tất cả thông tin");
-            alert.show();
+           showAlert("Lỗi","Vui lòng điền tất cả thông tin");
         } else {
             String hashedPassword = PasswordUtils.hashPassword(PWSignup.getText());
             PreparedStatement pr = con.prepareStatement(query);
@@ -103,13 +106,7 @@ public class LoginDashboard implements Initializable {
             pr.setString(3, EMSignup.getText());
             pr.setString(4, yourname.getText());
             pr.executeUpdate();
-
-
-            alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Thông báo!");
-            alert.setHeaderText(null);
-            alert.setContentText("Đăng kí thành công!");
-            alert.showAndWait();
+            showAlert("Thông báo","Đăng kí thành công");
             btnsignup.getScene().getWindow().hide();
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/btck2/Login.fxml"));
             Stage stage1 = new Stage();
@@ -120,8 +117,6 @@ public class LoginDashboard implements Initializable {
             stage1.show();
 
         }
-        ;
-
 
     }
 
@@ -170,12 +165,10 @@ public class LoginDashboard implements Initializable {
         scene.getStylesheets().add(getClass().getResource("/com/example/btck2/Style.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
-
-
     }
-
+@FXML
     public void TT(ActionEvent actionEvent) throws SQLException {
-        String email = ymail.getText();
+         email = ymail.getText();
         if (email == null || email.isEmpty()) {
             showAlert("Lỗi", "Vui lòng nhập email");
             return;
@@ -189,12 +182,45 @@ public class LoginDashboard implements Initializable {
         MailToken.saveResetToken(email, token);
         MailToken.sendResetEmail(email, token);
         showAlert("Success", "Email đặt lại mật khẩu đã được gửi.");
-//        mainAC.setVisible(false);
-//        SCAC.setVisible(true);
+        mainAC.setVisible(false);
+        SCAC.setVisible(true);
     }
 
 
+    public void OK(ActionEvent actionEvent) throws SQLException, IOException {
+    String tk=token.getText();
+        if (tk == null || tk.isEmpty()) {
+            showAlert("Error", "Vui lòng nhập token");
+            return;
+        }
 
+        if (isTokenValid(tk)) {
+            Parent root=FXMLLoader.load(getClass().getResource("/com/example/btck2/ResetPassword.fxml"));
+            Scene scene=new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/com/example/btck2/Style.css").toExternalForm());
+            Stage st=new Stage();
+            st.setScene(scene);
+            showAlert("Success", "Mã token hợp lệ");
+            ok.getScene().getWindow().hide();
+            st.show();
+
+        } else {
+            showAlert("Error", "Token không hợp lệ");
+        }
+
+    }
+    private boolean isTokenValid(String token) throws SQLException {
+        // Kiểm tra token trong cơ sở dữ liệu
+        String qr="SELECT COUNT(*) FROM user WHERE reset_token = ?";
+             con=connectDB.connect();
+             PreparedStatement stmt = con.prepareStatement(qr) ;
+            stmt.setString(1, token);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        return false;
+    }
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

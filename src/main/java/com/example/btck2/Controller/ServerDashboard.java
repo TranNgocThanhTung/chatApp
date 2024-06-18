@@ -32,7 +32,7 @@ public class ServerDashboard implements Initializable {
         textareaSV.setEditable(false);
         clients = new ArrayList<>();
     }
-
+//chạy một luồng mới (serverThread) để xử lý các hoạt động của máy chủ, bao gồm chấp nhận kết nối từ client và khởi chạy một luồng mới cho mỗi client bằng cách tạo đối tượng ClientHandler và khởi chạy nó trong một luồng mới.
     public void startServer() {
         serverThread = new Thread(() -> {
             try {
@@ -97,7 +97,7 @@ public class ServerDashboard implements Initializable {
                     broadcastMessage(username+": "+message);
                 }
             } catch (IOException e) {
-                Platform.runLater(() -> textareaSV.appendText("Error: Unable to receive message from client\n"));
+                Platform.runLater(() -> textareaSV.appendText(username+" "+"đã ngắt kết nối"+ "\n"));
             }
         }
 
@@ -114,7 +114,7 @@ public class ServerDashboard implements Initializable {
                         client.sendMessage(message);
                     }
                 } catch (IOException e) {
-                    Platform.runLater(() -> textareaSV.appendText("Error: Unable to send message to client\n"));
+                  e.printStackTrace();
                 }
             }
         }

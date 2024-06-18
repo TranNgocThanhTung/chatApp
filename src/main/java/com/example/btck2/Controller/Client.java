@@ -29,10 +29,10 @@ public class Client implements Initializable {
     private List<File> selectedFiles;
     private Socket socket;
     private ServerDashboard serverDashboard;
-
     private BufferedWriter os;
     private BufferedReader is;
-
+    @FXML
+    private Label nameuser;
     private Alert alert;
 
     public void setServerDashboard(ServerDashboard serverDashboard) {
@@ -41,19 +41,21 @@ public class Client implements Initializable {
 
     public Client() {
         connect(); // Gọi phương thức connect khi khởi tạo đối tượng Client
+
     }
 
     @FXML
     public void connect() {
-
+// khởi chạy một luồng mới để kết nối client tới máy chủ. Sau khi kết nối, một luồng khác được khởi chạy để nhận tin nhắn từ máy chủ
         new Thread(() -> {
             try {
                 socket = new Socket("localhost", 111);
                 os = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                 is = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 connected = true;
+
                 sendUsernameToServer(LoginDashboard.getname());
-                new Thread(this::receiveMessages).start();
+                new Thread(this::receiveMessages).start();// khởi chạy luồng để nhận tin nhắn
             } catch (IOException e) {
                 Platform.runLater(() -> showAlert("Connection Failed", "Could not connect to server "));
             }
@@ -66,14 +68,16 @@ public class Client implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        if (nameuser != null) {
+            nameuser.setText(LoginDashboard.getname());
+        } else {
+            System.err.println("nameuser is null");
+        }
         TA.setEditable(false);
         TA2.setEditable(false);
     }
 
     public void sendMessgae(ActionEvent actionEvent) {
-
-
         String message = msf.getText();
         if (message != null && !message.isEmpty()) {
             new Thread(() -> {
